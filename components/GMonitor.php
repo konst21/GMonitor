@@ -90,16 +90,26 @@ class GMonitor extends Component
 
 
     /**
-     * This functions will added to Gearman Job Server
-     * Must contain a some or all names of functions defined in /commands/functions.php
+     * Simply parse /commands/functions.php file and get functions name
+     * If functions not meant for queue processing, first symbol of function name must be _
      * @return array
      */
     public static function functionsList()
     {
-        return [
-            'test1',
-            'test2',
-        ];
+        $php = file_get_contents('../commands/functions.php');
+        preg_match_all('/function\s{0,5}[^\(]+\s{0,5}\(/i', $php, $z);
+        $out = [];
+        if (isset($z[0]) && is_array($z[0])) {
+            foreach ($z[0] as $raw_func) {
+                $raw_func = str_replace('(', '', $raw_func);
+                $raw_func = preg_replace('/function\s{1,10}/', '', $raw_func);
+                if ($raw_func[0] != '_') {
+                    $out[] = $raw_func;
+                }
+            }
+        }
+
+        return $out;
     }
 
     /**

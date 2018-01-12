@@ -40,7 +40,7 @@ function product(\GearmanJob $job)
     $parser = new \app\components\Parser();
     $parsed_object = new \app\components\Product($parser);
     $db = new \app\models\Product();
-    work_parse($uniq_data, $parser, $parsed_object, $db);
+    _work_parse($uniq_data, $parser, $parsed_object, $db);
 }
 
 function brand(\GearmanJob $job)
@@ -49,10 +49,10 @@ function brand(\GearmanJob $job)
     $parser = new \app\components\Parser();
     $parsed_object = new \app\components\Brand($parser);
     $db = new \app\models\Brand();
-    work_parse($uniq_data, $parser, $parsed_object, $db);
+    _work_parse($uniq_data, $parser, $parsed_object, $db);
 }
 
-function work_parse($uniq_data, app\components\Parser $parser, app\components\Parsed $parsed_object, app\models\Esbase $db)
+function _work_parse($uniq_data, app\components\Parser $parser, app\components\Parsed $parsed_object, app\models\Esbase $db)
 {
     $proxy = new \app\models\Proxy();
     $cookies = $parser->web_page_get($parsed_object->root_url)['cookies'];
