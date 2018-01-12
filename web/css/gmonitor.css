@@ -1,0 +1,8 @@
+#functions_table th {font-weight: normal !important}
+#add_workers, #remove_workers {width: 50px;}
+.reset, #reset_all_functions {cursor: pointer}
+.reset:hover, #reset_all_functions:hover {
+    text-decoration: underline;
+    color: blue;
+}
+#reset_all_functions {color: #0000aa}
