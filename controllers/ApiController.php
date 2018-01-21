@@ -57,9 +57,7 @@ class ApiController extends Controller
     {
         $function_name = Yii::$app->request->get('function_name');
         $functions_list = Yii::$app->gmonitor->all_functions_statuses();
-        //if (isset($functions_list[$function_name]) && $functions_list[$function_name]['in_queue'] > 0) {
-        //@todo normal check status of function
-        if (true) {
+        if (isset($functions_list['data'][$function_name]) && $functions_list['data'][$function_name]['in_queue'] > 0) {
             Yii::$app->gmonitor->reset_function_queue($function_name);
             return 'ok';
         }

@@ -11,12 +11,6 @@ $config = [
         'gmonitor' => [
             'class' => 'app\components\GMonitor',
         ],
-        'db' => [
-            'class'=>'system.db.CDbConnection',
-            'dsn'=>'mysql:host=localhost;dbname=slyii',
-            'username'=>'konst20',
-            'password'=>'rbzirj25',
-        ],
         'debig' => [
             'class' => 'app\components\Debig',
         ],

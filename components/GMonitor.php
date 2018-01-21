@@ -94,9 +94,11 @@ class GMonitor extends Component
      * If functions not meant for queue processing, first symbol of function name must be _
      * @return array
      */
-    public static function functionsList()
+    public static function functions_list()
     {
-        $php = file_get_contents('../commands/functions.php');
+        $php = file_get_contents(yii::getAlias('@app') . '/commands/functions.php');
+        preg_replace('/\/\*.+\*\//', '', $php);
+        $php = trim($php);
         preg_match_all('/function\s{0,5}[^\(]+\s{0,5}\(/i', $php, $z);
         $out = [];
         if (isset($z[0]) && is_array($z[0])) {
@@ -104,7 +106,7 @@ class GMonitor extends Component
                 $raw_func = str_replace('(', '', $raw_func);
                 $raw_func = preg_replace('/function\s{1,10}/', '', $raw_func);
                 if ($raw_func[0] != '_') {
-                    $out[] = $raw_func;
+                    $out[] = trim($raw_func);
                 }
             }
         }
@@ -161,12 +163,12 @@ class GMonitor extends Component
                     //this check need becase after stop of worker your function
                     //can be registered at Gearman Job server, this is a feature or fake )
                     if($raw_array[0] && ($raw_array[1] != 0 || $raw_array[2] !=0 || $raw_array[3] != 0)){
-                        $status['data'][$raw_array[0]] = array(
+                        $status['data'][$raw_array[0]] = [
                             'function_name' => $raw_array[0],
                             'in_queue' => $raw_array[1],
                             'jobs_running' => $raw_array[2],
                             'capable_workers' => $raw_array[3]
-                        );
+                        ];
                     }
 
                 }

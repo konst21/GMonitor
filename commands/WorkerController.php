@@ -14,7 +14,7 @@ use yii;
 require_once 'functions.php';
 
 /**
- * worker for Amazon parser
+ * worker
  *
  */
 class WorkerController extends Controller
@@ -27,7 +27,7 @@ class WorkerController extends Controller
     {
         $worker = new \GearmanWorker();
         $worker->addServer(\Yii::$app->gmonitor->host, \Yii::$app->gmonitor->port);
-        foreach (GMonitor::functionsList() as $func) {
+        foreach (GMonitor::functions_list() as $func) {
             if (is_callable($func)) {
                 $worker->addFunction($func, $func);
             }

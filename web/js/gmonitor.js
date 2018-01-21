@@ -44,7 +44,7 @@ function worker_add()
             },
             success: function (resp) {
                 if (resp === 'ok') {
-                    $.alert('One Worker Added');
+                    $.alert('Worker(s) Added');
                 }
                 else {
                     console.log(resp);
