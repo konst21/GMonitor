@@ -12,7 +12,8 @@ class ApiController extends Controller
     public $layout = 'api';
 
     /**
-     * @return string JSON
+     * status of all funtions in Gearman
+     * @return string JSON - array, format view in function PHPDoc
      */
     public function actionFunction_status ()
     {
@@ -21,6 +22,7 @@ class ApiController extends Controller
     }
 
     /**
+     * quantity of all workers
      * @return int count of workers
      */
     public function actionWorker_count ()
@@ -29,7 +31,7 @@ class ApiController extends Controller
     }
 
     /**
-     * start needed count of workers
+     * optionally add GET paramater "?count=<count of workers>", default 1
      * @return string
      */
     public function actionWorker_start ()
@@ -42,6 +44,7 @@ class ApiController extends Controller
     }
 
     /**
+     * Stop all workers
      * @return string
      */
     public function actionWorker_stop ()
@@ -55,6 +58,9 @@ class ApiController extends Controller
      */
     public function actionReset_function_queue ()
     {
+        if (!Yii::$app->request->get('function_name')) {
+            return 'GET parameter "function_name" needed';
+        }
         $function_name = Yii::$app->request->get('function_name');
         $functions_list = Yii::$app->gmonitor->all_functions_statuses();
         if (isset($functions_list['data'][$function_name]) && $functions_list['data'][$function_name]['in_queue'] > 0) {
