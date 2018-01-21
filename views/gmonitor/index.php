@@ -66,7 +66,7 @@ if (isset($_GET['add_to_queue'])) {
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button class="btn btn-danger" id="total_reset">Total Reset</button></td>
+                    <td><button class="btn btn-danger" id="total_reset" title="Stop All Workers, Reset Queues for All Functions">Total Reset</button></td>
                 </tr>
                 </tbody>
             </table>
