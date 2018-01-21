@@ -7,10 +7,13 @@
 
 /**
  * @param GearmanJob $job
+ * @return string
  */
 function example (\GearmanJob $job)
 {
     $gmonitor = new \app\components\GMonitor();//usage Yii2 class example
+    sleep(2);
+    return '';
 }
 
 

@@ -32,10 +32,6 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container">
-        <p class="pull-left"> Gearman Control <?= date('Y') ?></p>
-
-    </div>
 </footer>
 
 <?php $this->endBody() ?>

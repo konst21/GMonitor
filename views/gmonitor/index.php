@@ -31,37 +31,55 @@ $this->registerLinkTag([
         'href' => '/img/favicon.ico']);
 ?>
 <?=$js_templates?>
+<?
+if (isset($_GET['add_to_queue'])) {
+    $client = new \GearmanClient();
+    $client->addServer('127.0.0.1');
+    for ($i=0;$i<$_GET['add_to_queue'];$i++) {
+        $client->doBackground('example', ' ');
+    }
+}
+?>
 <div>
-
-
     <div style="clear: both"></div>
     <div style="float: left">
-        <table class="table table-bordered" style="width: auto;">
-            <thead>
-            <tr>
-                <th style="width: 100px;">Count</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><input class="form-control" id="worker_start_count" value="1"></td>
-                <td><button class="btn btn-info"  id="worker_add">Add Workers</button></td>
-            </tr>
-            <tr>
-                <td><input class="form-control" id="worker_set_count_val" value="1"></td>
-                <td><button class="btn btn-success" id="worker_set_count">Set Workers Count</button></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button class="btn btn-danger" id="worker_stop">Stop Workers</button></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button class="btn btn-danger" id="total_reset">Total Reset</button></td>
-            </tr>
-            </tbody>
-        </table>
+        <div>
+            <table class="table table-bordered" style="width: auto;">
+                <thead>
+                <tr>
+                    <th style="width: 100px;">Count</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input class="form-control" id="worker_start_count" value="1"></td>
+                    <td><button class="btn btn-info"  id="worker_add">Add Workers</button></td>
+                </tr>
+                <tr>
+                    <td><input class="form-control" id="worker_set_count_val" value="1"></td>
+                    <td><button class="btn btn-success" id="worker_set_count">Set Workers Count</button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="btn btn-danger" id="worker_stop">Stop Workers</button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="btn btn-danger" id="total_reset">Total Reset</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <form action="" method="get">
+                <input type="hidden" name="add_to_queue" value="10">
+                <label for="add">
+                    Add 10 <b><i>example()</i></b> functions to queue
+                </label>
+                <input type="submit" value="Add" id="add">
+            </form>
+        </div>
     </div>
     <div style="float: left; margin-left: 20px;">
         <div  id="functions_table_wrap"></div>
