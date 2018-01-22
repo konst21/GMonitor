@@ -131,7 +131,7 @@ class GMonitor extends Component
      * @param string $worker - 'main' or 'fake'
      * @return string
      */
-    private function worker_command_string ($worker = 'main')
+    private function worker_command_string ($worker)
     {
         return Yii::getAlias('@app') . "/yii worker/$worker ";
     }
@@ -272,17 +272,19 @@ class GMonitor extends Component
     }
 
     /**
-     * Start worker for parser
+     * Start worker
+     * @param string $worker
      */
-    public function main_worker_start(){
-        exec("php " . $this->worker_command_string('main') ." > /dev/null &");
+    public function main_worker_start($worker = 'main'){
+        exec("php " . $this->worker_command_string($worker) ." > /dev/null &");
     }
 
     /**
-     * Stop all workers for parser
+     * Stop workers
+     * @param string $worker
      */
-    public function main_worker_stop(){
-        exec("ps ax | grep worker/main | awk '{print $1}' | xargs kill");
+    public function main_worker_stop($worker = 'main'){
+        exec("ps ax | grep worker/$worker | awk '{print $1}' | xargs kill");
     }
 
     /**
