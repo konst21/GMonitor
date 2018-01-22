@@ -46,7 +46,7 @@ class WorkerController extends Controller
         $worker->addServer(Yii::$app->gmonitor->host, Yii::$app->gmonitor->port);
         $worker->addFunction($function_name, $function_name . '_fake');
         while($worker->work()){
-            if (!yii::$app->gmonitor->function_status($function_name)) die();
+            if (!yii::$app->gmonitor->function_status($function_name)['in_queue']) die();
         }
     }
 

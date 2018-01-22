@@ -37,8 +37,9 @@ class ApiController extends Controller
     public function actionWorker_start ()
     {
         $count = Yii::$app->request->get('count')?Yii::$app->request->get('count'):1;
+        $worker_name = Yii::$app->request->get('name')?Yii::$app->request->get('name'):'main';
         for ($i=0; $i<$count; $i++) {
-            Yii::$app->gmonitor->main_worker_start();
+            Yii::$app->gmonitor->worker_start($worker_name);
         }
         return 'ok';
     }
@@ -49,14 +50,15 @@ class ApiController extends Controller
      */
     public function actionWorker_stop ()
     {
-        Yii::$app->gmonitor->main_worker_stop();
+        $worker_name = Yii::$app->request->get('name')?Yii::$app->request->get('name'):'main';
+        Yii::$app->gmonitor->workers_stop($worker_name);
         return 'ok';
     }
 
     /**
      * Reset queue for one function
      */
-    public function actionReset_function_queue ()
+    public function actionFunction_queue_reset ()
     {
         if (!Yii::$app->request->get('function_name')) {
             return 'GET parameter "function_name" needed';
@@ -67,7 +69,7 @@ class ApiController extends Controller
             Yii::$app->gmonitor->reset_function_queue($function_name);
             return 'ok';
         }
-        return "empty";
+        return "ok";
     }
 
     /**

@@ -190,7 +190,7 @@ class GMonitor extends Component
         if(!array_key_exists($function_name, $all_func_array['data'])){
             return false;
         }
-        return $all_func_array['data'][$function_name]['in_queue'];
+        return $all_func_array['data'][$function_name];
     }
 
     /**
@@ -207,7 +207,7 @@ class GMonitor extends Component
             $counter = 1000;
             //wait until the queue is cleared
             while($number_of_func !=0 && $counter > 0){
-                $number_of_func = $this->function_status($function_name);
+                $number_of_func = $this->function_status($function_name)['in_queue'];
                 //small delay while Fake worker handle function queue
                 usleep(10000);
                 $counter--;
@@ -275,7 +275,7 @@ class GMonitor extends Component
      * Start worker
      * @param string $worker
      */
-    public function main_worker_start($worker = 'main'){
+    public function worker_start($worker = 'main'){
         exec("php " . $this->worker_command_string($worker) ." > /dev/null &");
     }
 
@@ -283,7 +283,7 @@ class GMonitor extends Component
      * Stop workers
      * @param string $worker
      */
-    public function main_worker_stop($worker = 'main'){
+    public function workers_stop($worker = 'main'){
         exec("ps ax | grep worker/$worker | awk '{print $1}' | xargs kill");
     }
 

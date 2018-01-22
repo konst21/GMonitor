@@ -118,17 +118,17 @@ function reset_function_queue()
         .click(function () {
             var function_name = $(this).attr('data-function');
             $.ajax({
-                url: '/api/reset_function_queue/',
+                url: '/api/function_queue_reset/',
                 data: {
                     function_name: function_name
                 },
                 success: function (resp) {
                     if (resp === 'ok') {
-                        $.alert('Queue of ' + function_name + ' reset');
+                        $.alert('Queue of function "' + function_name + '" reset');
                     }
                     else {
                         if(resp === 'empty') {
-                            $.alert('Queue of "' + function_name + '" function is EMPTY, reset not need');
+                            $.alert('Queue of function "' + function_name + '"is EMPTY, reset not need');
                         }
                         else {
                             console.log(resp);

@@ -25,16 +25,19 @@ Detailed info about each method of `GMonitor` class view in PHPDoc comments
 
 You can control tasks/queue and workers by HTTP API.  
 All link are relative to the root web path of application  
+Default GET parameters (if not defined in request):  
+name = 'main'  
+count = 1
 
 
 |URL|Correct Response|
 |----|----|
-|`/api/function_status`|JSON            |
+|`/api/function_status`|JSON (`see \components\Gmonitor.php:141-194`           |
 |`/api/worker_count`|int            |
-|`/api/worker_start`|'ok'            |
-|`/api/worker_stop`|'ok'            |
-|`/api/Reset_function_queue`|'ok'|
-|`/api/Reset_all_queue`|'ok'|
+|`/api/worker_start?count=<workers count>&name=<name of worker to start>`|'ok'            |
+|`/api/worker_stop?name=<name of worker to stop>/`|'ok'|
+|`/api/function_queue_reset?function_name=<name of func to reset queue>`|'ok'|
+|`/api/reset_all_queue`|'ok'|
 
 Detailed information about each API method view in `/controllers/ApiController.php` file
 
