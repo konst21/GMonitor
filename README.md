@@ -9,6 +9,7 @@ You can use this
 Detailed info about each method of `GMonitor` class view in PHPDoc comments  
 ## Deploy whole GMonitor app
 - copy code to your web directory
+- change Gearman host (`default 127.0.0.1`) and port (`default 4730`) in `\components\Gmonitor.php`
 - enjoy! GMonitor app is available by `<web path>/` URL 
 
 
